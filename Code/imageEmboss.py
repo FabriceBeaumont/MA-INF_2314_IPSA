@@ -3,6 +3,12 @@ import scipy.ndimage as img
 
 
 def embossV1(arrF):
+	"""
+	Slowest implementation: Using for loops to iterate through all
+	pixels and computing the diagonal difference.
+	:param arrF:
+	:return:
+	"""
 	M, N = arrF.shape
 	arrG = np.zeros((M, N))
 
@@ -15,6 +21,12 @@ def embossV1(arrF):
 
 
 def embossV2(arrF):
+	"""
+	Fastest implementation: Using numpy splicing to compute the desired
+	values as difference between two shifted matrices.
+	:param arrF:
+	:return:
+	"""
 	M, N = arrF.shape
 	arrG = np.zeros((M, N))
 
@@ -25,6 +37,12 @@ def embossV2(arrF):
 
 
 def embossV3(arrF):
+	"""
+	Traditional image processing implementation: Using a mask to iterate
+	over the pixels and computing the desired values in one sweep.
+	:param arrF:
+	:return:
+	"""
 	mask = np.array([[-1, 0, 0],
 					 [0, 0, 0],
 					 [0, 0, +1]])
