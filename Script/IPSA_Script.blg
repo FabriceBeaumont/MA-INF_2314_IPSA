@@ -1,0 +1,9 @@
+[0] Config.pm:302> INFO - This is Biber 2.9
+[0] Config.pm:305> INFO - Logfile is 'IPSA_Script.blg'
+[32] biber:313> INFO - === Mon Oct 25, 2021, 14:52:43
+[108] Biber.pm:371> INFO - Reading 'IPSA_Script.bcf'
+[149] Biber.pm:857> INFO - Found 0 citekeys in bib section 0
+[153] Utils.pm:169> WARN - The file 'IPSA_Script.bcf' does not contain any citations!
+[159] bbl.pm:617> INFO - Writing 'IPSA_Script.bbl' with encoding 'ansinew'
+[160] bbl.pm:720> INFO - Output to IPSA_Script.bbl
+[160] Biber.pm:110> INFO - WARNINGS: 1
