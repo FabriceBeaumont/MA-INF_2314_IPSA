@@ -1,4 +1,4 @@
-\input{../../../Skript_praeambel.tex}
+\input{../../../../Skript_praeambel.tex}
 
 % !TeX spellcheck = en_US
 
@@ -15,6 +15,9 @@ Rheinische Friedrich-Wilhelms-Universität Bonn}
 %\listoffigures
 
 %----------------------------------------------------------
+
+%TODO: Improve slides:
+% Lecture 03 - slide 48 - "...such that IT resembles..."
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Lecture 01 - 11.10.2021 %%%%
@@ -223,7 +226,9 @@ Note that if $f[x]$ has been sampled from $f(x)$, then the central difference of
 
 Using an operator notation, we will also write the central difference as $f^\prime[x] = d_x f[x]$.
 
-From this we can write the gradient for intensity images $f[x,y]$ as
+\subsection{Image gradient}
+
+By considering images as functions, we can compute their the gradient. For intensity images $f[x,y]$ it is defined as
 \begin{equation}
 	\nabla f[x,y] = \begin{bmatrix} d_x f[x,y]\\d_y f[x,y]\end{bmatrix}
 	= \frac{1}{2} \begin{bmatrix} f[x+1,y]-f[x-1,y]\\f[x,y+1]-f[x,y-1]\end{bmatrix}
@@ -235,6 +240,40 @@ From this we can write the gradient for intensity images $f[x,y]$ as
 	\caption{Example intensity image and its gradient image.}
 	\label{fig:gradientimageexample}
 \end{figure}
+
+Gradients of intensity images are typically visualized by only considering its magnitude 
+\begin{equation}
+	\norm{\nabla f [x,y]} = \sqrt{ \angles{\nabla f[x,y]}{\nabla f[x,y]} }= \sqrt{ \big(\nabla f[x,y]\big)^2 }
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/MagnitudeOfGradientsOfIntensityImages}
+	\caption{Example of an intensity image, the norms of the directed gradients and the magnitude of the total gradient.}
+	\label{fig:magnitudeofgradientsofintensityimages}
+\end{figure}
+
+As one can see, the gradient (and its magnitude) can be used as an \textbf{edge detector}.
+
+\subsection{Emboss effect}
+
+The emboss effect transforms an image such that it resembles a copper engraving or an etching. It can be achieved by applying the following operator:
+\begin{equation}
+	g[x,y] = \max\Big( 0,\ \min\big( 255, \ 128 + f[x+1,y-1] - f[x-1,y+1] \big) \Big)
+\end{equation}
+
+Note that by definition it is $0 \le g[x,y] \le 255$. Furthermore, the resulting pixels are computed as $128$ plus the difference in intensity between the lower left and upper right neighboring pixel (diagonal gradient).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/EmbossEffectExamples}
+	\caption{Two examples of the emboss effect. Left the original intensity image, right an emboss effect on it.}
+	\label{fig:embosseffectexamples}
+\end{figure}
+
+
+
+
 
 %TODO: CONTINUE Slide 43
 

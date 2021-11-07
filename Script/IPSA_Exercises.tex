@@ -8,6 +8,30 @@ Assume you have an RGB image of resolution $1024\times 768$ with $256$ intensity
 \paragraph{Solution:} 
 To store $256=2^8$ intensity levels exactly eight bits (one byte) is required. Thus to store $1024\times 768 = 786,432$ pixels (intensity levels), \num[group-separator={,}]{786432} bytes are required.
 
+\subsection{Q2 - lecture 03} 
+The \textbf{divergence} of a continuous multivariate function $f(x_1,x_2,\dots,x_n)$ is defined as 
+\begin{equation}
+	\Delta f = \nabla^2 f = \angles{\nabla}{\nabla f} = \sum_{i=1}^{n} \frac{\partial^2 f}{\partial x_i^2}
+\end{equation}
+where $\Delta$ is called the \textbf{Laplace operator}.
+
+Write down an expression for the divergence of a discrete function $g[x,y]$.
+\paragraph{Solution:} 
+
+\subsection{Q3 - lecture 03} 
+Assume a discrete uni-variate function $g[x]$. What does the following operator do?
+\begin{equation}
+	\text{AM}g[x] = \frac{1}{3}\big( g[x-1] + g[x] + g[x+1] \big)
+\end{equation}
+\paragraph{Solution:} 
+
+\subsection{Q4 - lecture 03} 
+Assume a discrete uni-variate function $g[x]$. What does the following operator do?
+\begin{equation}
+	\text{WM}g[x] = \frac{1}{4}\big( g[x-1] + 2g[x] + g[x+1] \big)
+\end{equation}
+\paragraph{Solution:} 
+
 \newpage
 \section{Sheet 1}
 
