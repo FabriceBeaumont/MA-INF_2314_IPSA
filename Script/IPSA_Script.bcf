@@ -1920,9 +1920,15 @@
   <!-- CITATION DATA -->
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
-    <bcf:datasource type="file" datatype="bibtex">BibliographyBiomedicalDataScAndAI.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex">BibliographyIPSA.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="1">young1995recursive</bcf:citekey>
+    <bcf:citekey order="2">viola2001rapid</bcf:citekey>
+    <bcf:citekey order="3">tomasi1998bilateral</bcf:citekey>
+    <bcf:citekey order="4">paris2009bilateral</bcf:citekey>
+    <bcf:citekey order="5">gonzalez2009digital</bcf:citekey>
+    <bcf:citekey order="6">jahne2005applications</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="ynt">
@@ -1951,4 +1957,13 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="ynt/global//global/global"
+                type="entry"
+                sortingtemplatename="ynt"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
 </bcf:controlfile>

@@ -16,5 +16,114 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{tomasi1998bilateral}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=5c51dbff8f01c3b5f905da5777a9f5c8}{%
+           family={Tomasi},
+           familyi={T\bibinitperiod},
+           given={Carlo},
+           giveni={C\bibinitperiod}}}%
+        {{hash=fc46ce8849185ec69297f514a363fa89}{%
+           family={Manduchi},
+           familyi={M\bibinitperiod},
+           given={Roberto},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{124c005540a77411ef4327cad376ba3c}
+      \strng{fullhash}{124c005540a77411ef4327cad376ba3c}
+      \strng{bibnamehash}{124c005540a77411ef4327cad376ba3c}
+      \strng{authorbibnamehash}{124c005540a77411ef4327cad376ba3c}
+      \strng{authornamehash}{124c005540a77411ef4327cad376ba3c}
+      \strng{authorfullhash}{124c005540a77411ef4327cad376ba3c}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Sixth international conference on computer vision (IEEE Cat. No. 98CH36271)}
+      \field{title}{Bilateral filtering for gray and color images}
+      \field{year}{1998}
+      \field{pages}{839\bibrangedash 846}
+      \range{pages}{8}
+    \endentry
+    \entry{viola2001rapid}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=050f01d5a79687cfd1d63ef25567fc35}{%
+           family={Viola},
+           familyi={V\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=5a25bc91f524ca6dfc2ecf9f4a13903c}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Ieee}%
+      }
+      \strng{namehash}{add3d8794d306082d388ffc8fba59210}
+      \strng{fullhash}{add3d8794d306082d388ffc8fba59210}
+      \strng{bibnamehash}{add3d8794d306082d388ffc8fba59210}
+      \strng{authorbibnamehash}{add3d8794d306082d388ffc8fba59210}
+      \strng{authornamehash}{add3d8794d306082d388ffc8fba59210}
+      \strng{authorfullhash}{add3d8794d306082d388ffc8fba59210}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2001 IEEE computer society conference on computer vision and pattern recognition. CVPR 2001}
+      \field{title}{Rapid object detection using a boosted cascade of simple features}
+      \field{volume}{1}
+      \field{year}{2001}
+      \field{pages}{I\bibrangedash I}
+      \range{pages}{1}
+    \endentry
+    \entry{paris2009bilateral}{book}{}
+      \name{author}{4}{}{%
+        {{hash=13acbde1d95e381ae8b4272e36d1982b}{%
+           family={Paris},
+           familyi={P\bibinitperiod},
+           given={Sylvain},
+           giveni={S\bibinitperiod}}}%
+        {{hash=3d3798cabd14d0747b2d57583b956b73}{%
+           family={Kornprobst},
+           familyi={K\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+        {{hash=5c34921ca9b62d0c274a450df780f48c}{%
+           family={Tumblin},
+           familyi={T\bibinitperiod},
+           given={Jack},
+           giveni={J\bibinitperiod}}}%
+        {{hash=7e717e4c02b60ac11cdde81de18512a4}{%
+           family={Durand},
+           familyi={D\bibinitperiod},
+           given={Fr{é}do},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Now Publishers Inc}%
+      }
+      \strng{namehash}{ebb720d36c847021ef5bbbf3a945895e}
+      \strng{fullhash}{95094f42f7244a5a25e30bdec37359d8}
+      \strng{bibnamehash}{ebb720d36c847021ef5bbbf3a945895e}
+      \strng{authorbibnamehash}{ebb720d36c847021ef5bbbf3a945895e}
+      \strng{authornamehash}{ebb720d36c847021ef5bbbf3a945895e}
+      \strng{authorfullhash}{95094f42f7244a5a25e30bdec37359d8}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bilateral filtering: Theory and applications}
+      \field{year}{2009}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

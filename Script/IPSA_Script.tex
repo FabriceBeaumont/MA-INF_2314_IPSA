@@ -1,4 +1,5 @@
 \input{../../../../Skript_praeambel.tex}
+\addbibresource{BibliographyIPSA.bib}
 
 % !TeX spellcheck = en_US
 
@@ -298,27 +299,521 @@ Note that by definition it is $0 \le g[x,y] \le 255$. Furthermore, the resulting
 %%%%% Lecture 09 - 18.11.2021 %%%% - MATH - the Fourier transform
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%TODO: CONTINUE Lec 10 (?)
-
-
-\chapter{Basics}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Lecture 02 - 18.10.2021 %%%%
+%%%%% Lecture 10 - tt.mm.2021 %%%% - MATH - properties of the Fourier transform
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Lecture 03 - 25.10.2021 %%%%
+%%%%% Lecture 11 - tt.mm.2021 %%%% - MATH - Frequency domain filtering
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Lecture 12 - tt.mm.2021 %%%% - MATH - Convolution and FT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Lecture 0x of tt.mm.2021 %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Lecture 13 - tt.mm.2021 %%%% - MATH - Convolution and Gaussian filters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Gaussian filter} 
+%TODO:??? Add to section 'Linear filters'?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Lecture 14 - tt.mm.2021 %%%% - MATH - FT in terms of bra and ket
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Lecture 15 - tt.mm.2021 %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Linear filters}
+
+Examples of linear filters are low-pass filters, Gaussian filters and mean filters.\\
+
+\begin{Definition}[Linear filters]{def:LinearFilters}
+	Convolution filters 
+	\[ h(x)=f(x)*g(x) \]
+	(where $f(x)$ is a signal and $g(x)$ is a filter) are called \textbf{convolution filters} because the convolution is a linear operations.
+\end{Definition}
 
 
+\subsection{Gaussian filter}
+Space domain image filtering is done by convolution of the image with a filter mask:
+\begin{equation*}
+	h[x,y] = (f*g)[x,y] = \sum_{u=-\frac{n}{2}}^{\frac{n}{2}} \sum_{v=-\frac{m}{2}}^{\frac{m}{2}} f[x-u,y-v] g[u,v]
+\end{equation*}
+
+A 2D convolution with a Gaussian filter mask $G_{\sigma}$ is a separable operation and thus can be computed in terms of two 1D convolutions with two 1D Gaussians. This reduces the per pixel effort from $\mathcal{O}(m^2)$ to $\mathcal{O}(m)$:
+
+\begin{flalign*}
+	(f*G_{\sigma})(x,y) &= \frac{1}{2 \pi \sigma^2} \int\limits_{-\infty}^{\infty} \int\limits_{-\infty}^{\infty} f(\xi, v) \exp\Big( -\frac{(x-\xi)^2 + (y-\nu)^2}{2\sigma^2} \Big) d\xi d\nu \\
+	&= \frac{1}{2 \pi \sigma^2} \int\limits_{-\infty}^{\infty} \int\limits_{-\infty}^{\infty} f(\xi, v) e^{-\frac{(x-\xi)^2}{2\sigma^2}} e^{\frac{-(y-\nu)^2}{2\sigma^2}} d\xi d\nu \\
+	&= \frac{1}{2 \pi \sigma^2} \int\limits_{-\infty}^{\infty} \Big( \frac{1}{\sqrt{2\pi}\sigma} \int\limits_{-\infty}^{\infty} f(\xi, \nu) e^{-\frac{(x-\xi)^2}{2\sigma^2}} d\xi \Big) e^{ \frac{-(y-\nu)^2}{2\sigma^2} } d\nu
+\end{flalign*}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/illustration_of_GaussianSeparability}
+	\caption{Illustration of the separability of the convolution with a Gaussian filter mask}
+	\label{fig:illustrationofgaussianseparability}
+\end{figure}
+
+Note that the convolution with a bi-variate Gaussian is separable, because the bi-variate Gaussian itself is separable. For the \textit{continuous}, isotropic case, we have:
+\begin{itemize}
+	\item Uni-variate Gaussian:
+	\[ g_{\sigma}(x) = \frac{1}{\sqrt{2\pi} \sigma} e^{- \frac{x^2}{2\sigma^2}} \]
+	\item Bi-variate Gaussian:
+	\[ G_{\sigma}(x,y) = \frac{1}{\sqrt{2\pi} \sigma^2} e^{- \frac{x^2+y^2}{2\sigma^2}} = \frac{1}{\sqrt{2\pi} \sigma^2} e^{- \frac{x^2}{2\sigma^2}} e^{- \frac{y^2}{2\sigma^2}} = g_{\sigma}(x)\cdot g_{\sigma}(y)\]
+\end{itemize}
+
+For the \textit{discrete}, isotropic case, we have:
+\begin{itemize}
+	\item Uni-variate Gaussian:
+	\[ g_{\sigma}[x_i] = \frac{ e^{- \frac{x_i^2}{2\sigma^2}} }{ \sum_{i} e^{- \frac{x_i^2}{2\sigma^2}} } \]
+	\item Bi-variate Gaussian:
+	\[ G_{\sigma}[x_i,y_j] = \frac{ e^{- \frac{x_i^2+y_j^2}{2\sigma^2}} }{ \sum_{i, j} e^{- \frac{x_i^2+y_j^2}{2\sigma^2}} }  = g_{\sigma}[x_i] \cdot g_{\sigma}[y_j]\]
+\end{itemize}
+
+If we understand the discrete, uni-variate Gaussian as a finite dimensional vector $g\in\IR^m$ with entries
+\[ g= \Big[ g_{\sigma}\big[x_{-\frac{m}{2}} \big], \dots, g_{\sigma}[x_0],\dots, g_{\sigma}\big[x_{+\frac{m}{2}} \big] \Big]^\intercal \]
+we can think of the discrete, bi-variate Gaussian as a finite dimensional outer product matrix $G\in \IR^{m\times m}$: $G=\opt{g}{g}$.\newline
+
+
+Note that this also works for non-isotropic yet uncorrelated bi-variate Gaussians:
+\[  G_{\sigma_i, \sigma_j}[x_i,y_j] = \frac{ \exp\Big( -\frac{x_i^2}{2\sigma_x^2}-\frac{y_j^2}{2\sigma_y^2} \Big) }{ \sum_{i, j} \exp\Big( -\frac{x_i^2}{2\sigma_x^2}-\frac{y_j^2}{2\sigma_y^2} \Big) }\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Lecture 18 - tt.mm.2021 %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Recursive Gaussian filtering}
+
+Since the 2D Gaussian is separable, an efficient 1D Gaussian filter would yield a Gaussian filtering algorithm in $\mathcal{O}(1)$ time. This will be discussed in this section.
+
+Intensity images are discrete bi-variate signals $f[x,y]$. Here, we will focus on discrete uni-variate signals $f[x]$. However, instead of thinking of them as functions of space $x$, we will consider them as functions of time $t$ (to match the terminology used in signal processing).
+
+The key insight is, that a discrete, uni-variate mean filter can be computed \textbf{recursively}:
+\begin{flalign*}
+	h[t] &= \frac{1}{m} \sum_{i=-\frac{m}{2}}^{\frac{m}{2}} f[t+i]\\
+	&= \frac{1}{m} \sum_{i=-\frac{m}{2}}^{\frac{m}{2}-1} f[t+i] + \frac{1}{m} f\big[t+\frac{m}{2}\big]\\
+	&= \frac{1}{m} \sum_{i=-\frac{m}{2}-1}^{\frac{m}{2}-1} f[t+i] - \frac{1}{m} f\big[t-\frac{m}{2}-1\big] + \frac{1}{m} f\big[t+\frac{m}{2}\big]\\
+	&= \frac{1}{m} \sum_{i=-\frac{m}{2}}^{\frac{m}{2}} f[t-1+i] - \frac{1}{m} f\big[t-1-\frac{m}{2}\big] + \frac{1}{m} f\big[t+\frac{m}{2}\big] \\
+	&= h[t-1] - \frac{1}{m} f\big[ t-1-\frac{m}{2} \big] + \frac{1}{m} f\big[ t+\frac{m}{2} \big]
+\end{flalign*}
+
+\begin{Definition}[Causal and anti-causal filters]{def:CausalAndAntiCausalFilters}
+	Let $f$ be a discrete, uni-variate function and $h$ a filter on it. The \textbf{causal} part of the filter are all terms that only use the past values $f[t-i]$ to compute the filter value at $t$.\\
+	The \textbf{anti-causal} part of the filter are all terms that only use the future values $f[t+i]$ to compute the filter value at $t$.
+\end{Definition}
+
+Example of causal and anti-causal filter components of mean filtering:
+\[ h[t] = \frac{1}{m} \sum_{i=-\frac{m}{2}}^{\frac{m}{2}} f[t+i] =  \underbrace{\frac{1}{m} \sum_{i=0}^{\frac{m}{2}} f[t-i]}_{\text{cuasal}} + \underbrace{\frac{1}{m} \sum_{i=1}^{\frac{m}{2}} f[t+i]}_{\text{anti-cuasal}}\]
+
+In signal processing, the convent is to denote the input to a filter as $x[t]$, and the output of a filter as $y[t]$.
+
+\begin{Definition}[Finite and infinite impulse response filter]{def:FIRandIIRfilters}
+	A \textbf{Finite impulse response (FIR) filter} of order $m$ is a causal filter where
+	\[ y[t] = a_0 x[t] + a_1 x[t-1] + \dots + a_m x[t-m] \ = \sum_{i=0}^{m} a_i x[t-i] \]
+	
+	An \textbf{infinite impulse response (IIR) filter} is a causal filter where
+	\[ y[t] = \sum_{i=0}^{\infty} a_i x[t-i] \]
+\end{Definition}
+
+IIR systems are often modeled in terms of difference equations or \textit{recursive filters}:
+\[ y[t] = \sum_{i=0}^{m} a_i x[t-i] - \sum_{i=1}^{n} b_i y[t-i] \]
+Lets use the notation
+\[ y[n] = \sum_{m=0}^{P} a_m x[n-m] - \sum_{m=1}^{Q} b_m y[n-m] \]
+or, equivalently with $b_0=1$
+\[ \sum_{m=0}^{Q} b_m y[n-m] = \sum_{m=0}^{P} a_m x[n-m]\]
+
+Such IIR systems have a particularly simple Z-transform or transfer functions. Using $\mathcal{Z}\{ x[n-k] \} = z^{-k} X(z)$ we can write:
+\[ Y(z) = \sum_{m=0}^{P} a_m z^{-m}X[z] - \sum_{m=1}^{Q} b_m z^{-m}Y(z) \]
+or, again equivalently
+\[ Y(z) \Big( 1+\sum_{m=1}^{Q} b_m z^{-m} \Big) = X(z) \sum_{m=0}^{P} a_m z^{-m} \]
+
+Using this we can define a \textit{transfer function}:
+\[ H(z) = \frac{Y(z)}{X(z)} = \frac{ \sum\limits_{m=0}^{P}a_m z^{-m} }{ 1+\sum\limits_{m=1}^{Q}b_m z^{-m} }  \]
+
+The transfer function of an IIR system is a rational function (and a ratio of two polynomials). The numerator $Y(z)$ is a convolution, the denominator $X(z)$ is a recursion. The goal is to determine $H(z)$ such that it realizes Gaussian filtering. This consists of two challenges:\begin{enumerate}
+	\item Gaussian filtering is only convolutional (that is, there is no recursion). Thus we need to approximate the Z-transform of a Gaussian using two polynomials.
+	\item The transfer function is causal (only looks back in time), but Gaussian filtering is anti-causal (requires us to look ahead in time). Thus we need to express an anti-causal filter in terms of causal components only. 
+\end{enumerate}
+
+First, lets solve the second challenge. Consider causal and anti-causal components by requiring
+\[ h[n] = h_+[n] + h_-[n] \]
+where
+\[ h_+[n] := \begin{cases}
+h[n] & \text{if }n\le 0\\
+0 & \text{if } n>0
+\end{cases},\qquad h_-[n] := \begin{cases}
+0 & \text{if }n\le 0\\
+h[n] & \text{if } n>0
+\end{cases} \]
+
+We will make use of the following equations (without proofing them):
+\begin{equation}\label{eq:ZTransformHPlus}
+	\mathcal{Z}\{ h_+[n] \} = H_+(z)= \frac{ \sum_{m=0}^{P-1} a_m^+ z^{-m} }{ 1 + \sum_{m=1}^{Q} b_m^+ z^{-m} }
+\end{equation}
+\begin{equation}\label{eq:ZTransformHMinus}
+	\mathcal{Z}\{ h_-[n] \} = H_-(z)= \frac{ \sum_{m=1}^{P} a_m^- z^{m} }{ 1 + \sum_{m=1}^{Q} b_m^- z^{m} }
+\end{equation}
+Using these, we construct a recursive Gaussian filter as a sum of a causal- and an anti-causal system $h[n] = h_+[n] + h_-[n]$ or $H(z)=H_+(z) + H_-(z)$.
+
+To implement the composite filter, we apply the causal- and the anti-causal filter to an input sequence $x[n]$ and accumulate their results in an output sequence $y[n]$.\\
+It remains to determine the coefficients $a_m^+, b_m^+, a_m^-$ and $b_m^-$. Therefore set $P=Q$. Without proof we claim that\begin{itemize}
+	\item for symmetric, even filters, the coefficients are related as
+	\begin{flalign*}
+		b_m^- &= b_m^+ & && &\forall m\\
+		a_m^- &= a_m^+ &- b_m^+ a_0^+ && &\forall m=1,\dots, Q-1\\
+		a_Q^- &= &-b_Q^+ a_0^+ &&&&&&&&&&&&&&&&&&&&&&&
+	\end{flalign*}
+	\item for anti-symmetric, odd filters, we have
+	\begin{flalign*}
+	b_m^- &= b_m^+ & && &\forall m\\
+	a_m^- &= -a_m^+ &+ b_m^+ a_0^+ && &\forall m=1,\dots, Q-1\\
+	a_Q^- &= &\; b_Q^+ a_0^+ &&&&&&&&&&&&&&&&&&&&&&&&&&&
+ 	\end{flalign*}
+\end{itemize}
+Now only $a_m^+$ and $b_m^+$ have to be determined.\\
+
+
+The solution to the first challenge, that is to approximate the Z-transform of a Gaussian using two polynomials, goes as follows: Approximate the causal part of 
+\[ g_\sigma [n] = \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{n^2}{2\sigma^2}} \]
+as a linear combination of four simple exponential functions
+\[ h_\sigma^+[n] = \sum_{i=0}^{k=3} w_i e^{-\lambda_i \frac{n}{\sigma}} \]
+because this model has a simple Z-transform. Using substitutions and Euler's identity, we can write
+\[ h_\sigma^+[n] = \sum_{i=1}^{2} \Big( \alpha_i \cos\big( \frac{n\omega_i}{\sigma}\big) + \beta_i \sin\big( \frac{n\omega_i}{\sigma} \big) \Big) e^{-\frac{n\gamma_i}{\sigma}} \]
+
+Computing the Z-transform of $h_\sigma^+[n]$ and comparison to $h_+[n]$ in \ref{eq:ZTransformHPlus} yields:
+\begin{flalign*}
+	a_0^+ = & \; \alpha_1 + \alpha_2 \\
+	a_1^+ = & \; e^{-\frac{\gamma_2}{\sigma}} \left( \beta_2 \sin\frac{\omega_2}{\sigma}-(\alpha_2+2 \alpha_1) \cos\frac{\omega_2}{\sigma} \right) + 
+	e^{-\frac{\gamma_1}{\sigma}} \left( \beta_1 \sin\frac{\omega_1}{\sigma}-(2 \alpha_2+\alpha_1) \cos\frac{\omega_1}{\sigma} \right) \\
+	a_2^+ = & \; 2 e^{-\frac{\gamma_1+\gamma_2}{\sigma}}   
+	\left( 
+	(\alpha_1+\alpha_2) \cos\frac{\omega_2}{\sigma} \cos\frac{\omega_1}{\sigma}
+	- \cos\frac{\omega_2}{\sigma} \beta_1 \sin\frac{\omega_1}{\sigma}
+	- \cos\frac{\omega_1}{\sigma} \beta_2 \sin\frac{\omega_2}{\sigma}
+	\right) \\
+	& \; + \alpha_2 e^{-2 \frac{\gamma_1}{\sigma}} + \alpha_1 e^{-2 \frac{\gamma_2}{\sigma}} \\
+	a_3^+ = & \; e^{-\frac{\gamma_2 + 2 \gamma_1}{\sigma}}  \left(\beta_2 \sin\frac{\omega_2}{\sigma}-\alpha_2 \cos\frac{\omega_2}{\sigma}\right)
+	+ e^{-\frac{\gamma_1 + 2 \gamma_2}{\sigma}}  \left(\beta_1 \sin\frac{\omega_1}{\sigma}-\alpha_1 \cos\frac{\omega_1}{\sigma}\right) \\
+	b_1^+ = & \; -2 e^{-\frac{\gamma_2}{\sigma}} \cos\frac{\omega_2}{\sigma} - 2 e^{-\frac{\gamma_1}{\sigma}} \cos\frac{\omega_1}{\sigma} \\
+	b_2^+ = & \; 4 \cos\frac{\omega_2}{\sigma} \cos\frac{\omega_1}{\sigma} e^{-\frac{\gamma_1 + \gamma_2}{\sigma}}
+	+ e^{-2 \frac{\gamma_2}{\sigma}} + e^{-2 \frac{\gamma_1}{\sigma}} \\
+	b_3^+ = & \; -2 \cos\frac{\omega_1}{\sigma} e^{-\frac{\gamma_1 + 2 \gamma_2}{\sigma}}
+	- 2 \cos\frac{\omega_2}{\sigma} e^{-\frac{\gamma_2 + 2 \gamma_1}{\sigma}} \\
+	b_4^+ = & \; e^{-\frac{2 \gamma_1 + 2 \gamma_2}{\sigma}}             
+\end{flalign*}
+
+To determine the coefficients $\alpha_i$, $\beta_i$, $\omega_i$ and $\gamma_i$, Deriche (1992) resorts to the method of least squares by minimizing the loss function
+\[ E=\sum_{n=0}^{1000} \Big[ h_\sigma^+\big[ \frac{n}{100} \big] - g_\sigma \big[ \frac{n}{100} \big] \Big]^2 \]
+His results are:
+\begin{center}\begin{tabular}{l|c|c|c|c}
+	& $\alpha_i$ & $\beta_i$ & $\gamma_i$ & $\omega_i$\\\hline
+	$i=1$ & $1.6800$ & $3.7350$ & $1.7830$ & $0.6318$\\
+	$i=2$ & $-0.6803$ & $-0.2598$ & $1.7230$ & $1.9970$\\
+\end{tabular}\end{center}
+
+Given $\alpha_i, \beta_i, \gamma_i, \omega_i$ and the standard deviation $\sigma$ of the desired Gaussian filter, we can determine $a_m^+, b_m^+, a_m^-$ and $b_m^-$. Using this method to filter a given signal $x[n]$ is then to compute
+\[ y[n] = \frac{1}{\sigma\sqrt{2\pi}} \big( y_+[n] + y_-[n] \big)  \]
+where
+\begin{flalign*}
+	y_+[n] &= \sum_{m=0}^{3} a_m^+ x[n-m] - \sum_{m=1}^{4} b_m^+ y^+ [n-m]\\
+	y_-[n] &= \sum_{m=1}^{4} a_m^- x[n+m] - \sum_{m=1}^{4} b_m^- y^- [n+m]
+\end{flalign*}
+
+In other words, if $x[n]$ is a row (or a column) of an image, we compute e
+\begin{itemize}
+	\item[] $y_+[n]$ by iterating over $x[n]$ from left to right (top to bottom) and \item[] $y_-[n]$ by iterating over $x[n]$ from right to left (bottom to top).
+\end{itemize}
+Per pixel, this requires only a fixed number of operations, regardless of our choice of $\sigma$. Thus the computational effort per pixel is $\mathcal{O}(1)$.
+
+An improved (even faster) method for recursive Gaussian filtering can be found in  ~\cite{young1995recursive}.
+
+\subsubsection{Summary}
+To summarize, Gaussian filtering can be done with a pixel effort of
+\begin{itemize}
+	\item $\mathcal{O}(m^2)$ - using naive 2D convolutions and
+	\item $\mathcal{O}(m)$ - exploiting separability.
+\end{itemize}
+
+\subsection{Mean filter}
+
+\begin{Definition}[Mean filters]{def:MeanFilters}
+	A mean filter $g(x)$ can be defined as 
+	\[ \frac{1}{mn} \begin{bmatrix} 1 & 1 & \dots & 1\\	
+	1 & 1 & \dots & 1\\
+	\vdots & \vdots & \ddots & \vdots\\
+	1 & 1 & \dots & 1\\
+	\end{bmatrix} \]
+	Convolution with it assigns every pixel the \textit{average intensity value} of all pixels in its $m\times n$ neighborhood.	
+\end{Definition}
+
+Notice that the brute-force effort per pixel of mean filtering is $\mathcal{O}(mn)$. Using intelligent pre-processing, the effort per pixel can be reduced to $\mathcal{O}(1)$!
+
+\subsubsection{Integrals of integrals}
+
+Given an $N\times M$ image $f[x,y]$, we often consider \textbf{integrals}
+\[ c[x,y,n,m] = \sum\limits_{u=x-\frac{n}{2}}^{x+\frac{n}{2}} \sum\limits_{v=y-\frac{n}{2}}^{y+\frac{n}{2}} h\Big[ f[u,v] \Big] \]
+The function $h$ and thus $c$ may be scalar- or vector-valued.
+
+For the mean filter, we simply have
+\[ h\Big[ f[u,v] \Big] = \frac{f[u,v]}{mn} \]
+
+In this setting, it is often beneficial to consider \textbf{integrals of integrals}
+\[ C[x,y] = \sum\limits_{u=0}^{x} \sum\limits_{v=0}^{y} c[u,v] \]
+where
+\[ c[u,v] = c[u, v, 1, 1] = h\Big[ f[u,v] \Big] \]
+us computed from only a single pixel.
+
+Although these integrals of integrals necessitate an additional iteration over the image, they can ease computational burden. Because once an integral image $C[x,y]$ is available, its sub-integrals $c[x,y]$ can be computed in constant time.
+
+Consider this:
+\begin{flalign*}
+	c[x,y,n,m] &= &C\Big[ x+\frac{n}{2}, y+\frac{m}{2} \Big] \\ 
+	&&-C\Big[ x+\frac{n}{2}, y-\frac{m}{2} \Big] \\
+	&&-C\Big[ x-\frac{n}{2}, y+\frac{m}{2} \Big] \\
+	&&+C\Big[ x-\frac{n}{2}, y-\frac{m}{2} \Big] &&& &&& &&& &&& &&& &&& &&& &&&\\
+	&=: &\delta+\alpha-\beta-\gamma
+\end{flalign*}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/filter_sub_integrals}
+	\caption{Illustration of the computation using the sub-integrals.}
+	\label{fig:filtersubintegrals}
+\end{figure}
+
+The integrals of integrals can be computed efficiently with the following \textit{dynamic program}:
+\[ C[x,y] = f[x,y] + C[x,y-1] + C[x-1, y] - C[x-1, y-1] \]
+
+Integral images play a key role in rapid face detection algorithms~\cite{viola2001rapid}. The idea of integral images can be generalized, e.g. to \textit{integral histograms}.\\
+
+\subsubsection{Summary}
+To summarize, mean filtering can be done with a pixel effort of
+\begin{itemize}
+	\item $\mathcal{O}(m^2)$ - using naive 2D convolutions,
+	\item $\mathcal{O}(m)$ - exploiting separability and
+	\item $\mathcal{O}(1)$ - using integral images.
+\end{itemize}
+
+\section{Non-linear filters}
+
+
+\subsection{Bilateral filter}
+
+Bilateral filtering is a rather recent idea~\cite{tomasi1998bilateral},~\cite{paris2009bilateral}. Given an image $f[x,y]$ and an $n\times m$ neighborhood, compute the new image as
+\begin{flalign*}
+	h[x,y] &= \gamma[x,y] \sum\limits_{u=-\frac{n}{2}}^{\frac{n}{2}} \sum\limits_{v=-\frac{m}{2}}^{\frac{m}{2}} g_\rho\Big[ f[x,y]-f[x-u,y-v \Big] \cdot G_{\sigma}[u,v]\cdot f[x-u, y-v]\\
+	&= \gamma[x,y] \sum\limits_{u=-\frac{n}{2}}^{\frac{n}{2}} \sum\limits_{v=-\frac{m}{2}}^{\frac{m}{2}} H[x,y,u,v]\cdot f[x-u, y-v]
+\end{flalign*}
+where $g_\rho$ and $G_\sigma$ are Gaussians with standard deviations $\rho$ and $\sigma$ and $\gamma$ is a location dependent normalization factor:
+\[ \gamma[x,y] = \frac{1}{ \sum_{u,v} H[x,y,u,v] } \]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/example_bilateral_filtering}
+	\caption{Example of bilateral filtering.}
+	\label{fig:examplebilateralfiltering}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Lecture 16 - tt.mm.2021 %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Median filter}
+
+Given an 2D image $f$, consider the $m\times n$ neighborhood of pixel $p$ at coordinate $[x,y]$
+\[ \mathcal{N}_{xy} := \Big\{ f[i,j]|\ x-\frac{m}{2}\le i \le x+\frac{m}{2} \ \land \  y-\frac{n}{2}\le j \le y+\frac{n}{2} \Big\} := \{ p_0, p_1,\dots, p_{q-1} \} \]
+where $q=mn$.
+
+Now, assume that we order the set $\mathcal{N}_{xy}$ ascendingly:
+\[ \mathcal{R}_{xy} := \Big\{ r_0, r_1,\dots, r_{q-1}|\ r_i\le r_{i+1}\ \land\ r_i\in\mathcal{N}_{xy} \Big\} \]
+Then the element $r_{\frac{q-1}{2}}$ is called the \textbf{median} of the neighborhood $\mathcal{N}_{xy}$.
+
+If we compute the local median for every coordinate $[x,y]$ in $f$ to create a new image $g$, the operation $g[x,y]\leftarrow r_{\frac{q-1}{2}}$ is called \textbf{median filtering}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/example_median_filtering}
+	\caption{Example of median filtering with different sizes of neighborhoods.}
+	\label{fig:examplemedianfiltering}
+\end{figure}
+
+
+\begin{algorithm}[H]
+	\caption{Naive Median filtering} \label{alg:NaiveMedianFiltering} 
+	\begin{tabbing}
+		\textbf{Output:} \= \kill
+		\textbf{Input:} \>an image $f$ of size $M\times N$,\\
+		\>Filter dimensions $m$ and $n$ (size of the considered pixel neighborhood).\\
+		\textbf{Output:} \>the median filtered image $g$ of $f$.
+	\end{tabbing}	
+	\begin{algorithmic}[1]		
+		\For {$y=\frac{m}{2}, \dots, M-\frac{m}{2}$}
+			\For {$y=\frac{n}{2}, \dots, N-\frac{n}{2}$}
+				\State $\mathcal{N}_{xy} = \emptyset$
+				\For {$j=-\frac{m}{2}, \dots, \frac{m}{2}$}
+					\For {$i=-\frac{n}{2}, \dots, \frac{n}{2}$}
+						\State $\mathcal{N}_{xy} = \mathcal{N}_{xy}\cup \Big\{ f[y+i,x+i]\Big\}$
+					\EndFor
+				\EndFor
+				\State $\mathcal{R}_{xy} = \operatorname{qsort}(\mathcal{N}_{xy})$
+				\State $g[y,x] \leftarrow r_{\frac{q-1}{2}}$
+			\EndFor
+		\EndFor
+	\end{algorithmic}
+	\textbf{Runtime}: Notice that the neighborhoods at the borders of the image are smaller. The average effort per pixel is $\mathcal{O}\big(mn\log(mn)\big)$. If $mn$ is large, this is rather slow.
+\end{algorithm}
+
+A more efficient computation can make use of the fact, that the median is the $0.5$ quantile of a given distribution. A histogram $H[i]$ is used to count objects, for example the number of occurrences of an intensity $i$ in an image. When normalized such that its entries sum to $1$, a histogram becomes a \textit{probability mass function}.
+
+\begin{algorithm}[H]
+	\caption{Huang Median filtering, 1979} \label{alg:HuangMedianFiltering} 
+	\begin{tabbing}
+		\textbf{Output:} \= \kill
+		\textbf{Input:} \>an image $f$ of size $M\times N$,\\
+		\>Filter dimensions $m$ and $n$ (size of the considered pixel neighborhood).\\
+		\textbf{Output:} \>the median filtered image $g$ of $f$.
+	\end{tabbing}	
+	\begin{algorithmic}[1]		
+		\For {$y=\frac{m}{2}, \dots, M-\frac{m}{2}$}
+			\For {$y=\frac{n}{2}, \dots, N-\frac{n}{2}$}
+				\If {$[y,x]$ is in the upper left corner}
+					\State Initialize histogram $H$
+				\Else
+					\For{$k=-\frac{m}{2},\dots, \frac{m}{2}$}
+						\State Subtract $f[y+k, x-\frac{n}{2}-1]$ from $H$
+						\State Add $f[y+k, x+\frac{n}{2}]$ to $H$
+					\EndFor
+				\EndIf
+				\State $q=\sum_{i} H[i]$
+				\State $s=0$
+				\For {$i=0,\dots,\#\text{colors}$}
+					\State $s=s+H[i]$
+					\If {$s\ge \frac{q}{2}$}
+						\State $\text{median} = i$
+						\State \textbf{break}
+					\EndIf
+				\EndFor
+			\EndFor
+		\EndFor
+	\end{algorithmic}
+	\textbf{Runtime}: The effort per pixel is limited by the number of colors (available intensity values). For an 8-bit gray scale image it is:
+	\[ \mathcal{O}(n) + 256\text{ operations} = \mathcal{O}(n) + \mathcal{O}(1) = \mathcal{n}\] 
+\end{algorithm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/Huang_Alg_Sketch}
+	\caption{Sketch of the operations in the Huang median filter (algorithm \ref{alg:HuangMedianFiltering}).}
+	\label{fig:huangalgsketch}
+\end{figure}
+
+Furthermore we can make use of the fact, that the histogram of disjoint sets is the sum of their individual histograms:
+\[ \forall A, B:\qquad A\cap B=\emptyset \ \implies \ H[A\cup B] = H[A] + H[B] \]
+
+Thus one may maintain a histogram $h_x$ for each column $x$ of $f$. This leads to the following algorithm:
+
+\begin{algorithm}[H]
+	\caption{Perreault \& Hébert Median filtering, 2007} \label{alg:PerreaultHebertMedianFiltering} 
+	\begin{tabbing}
+		\textbf{Output:} \= \kill
+		\textbf{Input:} \>an image $f$ of size $M\times N$,\\
+		\>Filter dimensions $m$ and $n$ (size of the considered pixel neighborhood).\\
+		\textbf{Output:} \>the median filtered image $g$ of $f$.
+	\end{tabbing}	
+	\begin{algorithmic}[1]		
+		\For {$y=\frac{m}{2}, \dots, M-\frac{m}{2}$}
+			\For {$y=\frac{n}{2}, \dots, N-\frac{n}{2}$}
+				\If {$y$ is in the uppermost row}
+					\State Initialize a histogram $h_x$ for the column $x$
+				\EndIf
+				\If {$[y,x]$ is in the upper left corner}
+					\State Initialize $H$
+				\Else
+					\State Subtract $f[y-\frac{m}{2}-1, x+\frac{n}{2}]$ from $h_{x+\frac{n}{2}}$
+					\State Add $f[y+\frac{m}{2}, x+\frac{n}{2}]$ to $h_{x+\frac{n}{2}}$
+					\State $H=H-h_{x-\frac{n}{2}-1} + h_{x+\frac{n}{2}}$
+				\EndIf
+				\State $s=0$
+				\For {$i=0,\dots,\#\text{colors}$}
+					\State $s=s+H[i]$
+					\If {$s\ge \frac{q}{2}$}
+						\State $\text{median} = i$
+						\State \textbf{break}
+					\EndIf
+				\EndFor
+			\EndFor
+		\EndFor
+	\end{algorithmic}
+	\textbf{Runtime}: The effort per pixel is limited by the number of colors (available intensity values). For an 8-bit gray scale image it is:
+	\begin{itemize}
+		\item One addition and one subtraction for $h_{x+\frac{n}{2}}$
+		\item $256$ additions and $256$ subtractions for $H=H-h_{x-\frac{n}{2}-1}+h_{x+\frac{n}{2}}$
+		\item At most $256$ operations for computing $s$.
+	\end{itemize}
+	Thus the runtime is of constant complexity: $\mathcal{O}(1)$. \\
+	However note, that there is a large constant factor. Yet, additional tricks keep the efforts low, e.g. multilevel histograms and additions and subtraction by means of bit shifting.
+\end{algorithm}
+
+A corresponding implementation is available with OpenCV.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/perreault_hebert_mean_filter_sktech}
+	\caption{Sketch of the operations in the Perreault \& Hébert median filter (algorithm \ref{alg:PerreaultHebertMedianFiltering}).}
+	\label{fig:perreaulthebertmeanfiltersktech}
+\end{figure}
+
+To summarize, mean filtering can be done with a pixel effort of
+\begin{itemize}
+	\item $\mathcal{O}\big(m^2 \log(m^2)\big)$ - using naive 2D convolutions (with qsort),
+	\item $\mathcal{O}(m)$ - using local histogram updates and
+	\item $\mathcal{O}(1)$ - using clever histogram updates.
+\end{itemize}
+
+\section{Morphological operations}
+
+\begin{Definition}[Erosion and dilation]{def:ErosionAndDilation}
+	Given $f[x,y]$ and an ordered set $\mathcal{R}_{xy} = \{ r_i\in\mathcal{N}_{xy}| \ r_i\le r_{i+1} \}$, the operation
+	\begin{itemize}
+		\item $e:g[x,y] \leftarrow r_0$ is called \textbf{erosion} (spread of small values) and
+		\item $d:g[x,y] \leftarrow r_{q-1}$ is called \textbf{dialation} (spread of large values).
+	\end{itemize}
+\end{Definition}
+
+Erosion and dilation are useful in binary image processing. They shrink (erosion) or expand (dilation) shapes. This can also be useful to extract the boundary of a shape. See image \ref{fig:catexampleerosiondilation} for example.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/cat_example_erosion_dilation}
+	\caption{Example of erosion and dilation on a binary image of the shape of a cat.}
+	\label{fig:catexampleerosiondilation}
+\end{figure}
+
+\begin{Definition}[Opening and closing]{def:OpeningAndClosing}
+	Given $f[x,y]$ and an ordered set $\mathcal{R}_{xy} = \{ r_i\in\mathcal{N}_{xy}| \ r_i\le r_{i+1} \}$. Using erosion $e$ and dialation $d$ one can define the operations
+	\begin{itemize}
+		\item \textbf{opening} $d \circ e$ and
+		\item \textbf{closing} $e \circ d$.
+	\end{itemize}
+\end{Definition}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/catExampleOpeningAndClosing}
+	\caption{Example of the opening and closing operation on a binary image of the shape of a cat.}
+	\label{fig:catexampleopeningandclosing}
+\end{figure}
+
+Morphological operations are important in areas such as industrial computer vision (machine vision) and in medical image processing. See ~\cite{gonzalez2009digital} and ~\cite{jahne2005applications} for more details.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Lecture 19 - tt.mm.2021 %%%% - Omitted - due to lack of clear structure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\chapter{GOTO END}
 \newpage
 %%%% ----------------------- %%%%
 %%%% -------Exercises------- %%%%
@@ -326,15 +821,11 @@ Note that by definition it is $0 \le g[x,y] \le 255$. Furthermore, the resulting
 
 \input{IPSA_Exercises.tex}
 
-\newpage
+
 %%%% ----------------------- %%%%
 %%%% ------Bibliography----- %%%%
 %%%% ----------------------- %%%%
-\begin{thebibliography}{4}
-
-\bibitem[1]{1}
-\glqq EXAMPLE: Finite Elemente - Theorie, schnelle Löser und Anwendungen in der Elastizitätstheorie \grqq von Dietrich Braess, 5. Auflage, Springer, 2013
-
-\end{thebibliography}
+\newpage
+\printbibliography
 
 \end{document}

@@ -19,6 +19,14 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \providecommand \oddpage@label [2]{}
+\providecommand\@newglossary[4]{}
+\@newglossary{main}{glg}{gls}{glo}
+\@newglossary{acronym}{alg}{acr}{acn}
+\providecommand\@glsxtr@savepreloctag[2]{}
+\providecommand\@glsorder[1]{}
+\providecommand\@istfilename[1]{}
+\@istfilename{IPSA_Script.ist}
+\@glsorder{word}
 \providecommand\tcolorbox@label[2]{}
 \@writefile{toc}{\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax }
 \@writefile{lof}{\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax }
@@ -80,22 +88,105 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces Two examples of the emboss effect. Left the original intensity image, right an emboss effect on it.\relax }}{12}{figure.caption.8}}
 \newlabel{fig:embosseffectexamples}{{2.8}{12}{Two examples of the emboss effect. Left the original intensity image, right an emboss effect on it.\relax }{figure.caption.8}{}}
 \newlabel{fig:embosseffectexamples@cref}{{[figure][8][2]2.8}{[1][11][]12}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Basics}{13}{chapter.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Linear filters}{12}{section.2.3}}
+\zref@newlabel{mdf@pagelabel-9}{\default{3.1}\page{12}\abspage{12}\mdf@pagevalue{12}}
+\newlabel{def:LinearFilters}{{3.1}{12}{Linear filters}{defctr.2.3.1}{}}
+\newlabel{def:LinearFilters@cref}{{[defctr][1][2,3]3.1}{[1][12][]12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Gaussian filter}{12}{subsection.2.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces Illustration of the separability of the convolution with a Gaussian filter mask\relax }}{13}{figure.caption.9}}
+\newlabel{fig:illustrationofgaussianseparability}{{2.9}{13}{Illustration of the separability of the convolution with a Gaussian filter mask\relax }{figure.caption.9}{}}
+\newlabel{fig:illustrationofgaussianseparability@cref}{{[figure][9][2]2.9}{[1][13][]13}}
+\@writefile{toc}{\contentsline {subsubsection}{Recursive Gaussian filtering}{14}{section*.10}}
+\zref@newlabel{mdf@pagelabel-10}{\default{3.2}\page{15}\abspage{15}\mdf@pagevalue{15}}
+\newlabel{def:CausalAndAntiCausalFilters}{{3.2}{15}{Recursive Gaussian filtering}{defctr.2.3.2}{}}
+\newlabel{def:CausalAndAntiCausalFilters@cref}{{[defctr][2][2,3]3.2}{[1][15][]15}}
+\zref@newlabel{mdf@pagelabel-11}{\default{3.3}\page{15}\abspage{15}\mdf@pagevalue{15}}
+\newlabel{def:FIRandIIRfilters}{{3.3}{15}{Recursive Gaussian filtering}{defctr.2.3.3}{}}
+\newlabel{def:FIRandIIRfilters@cref}{{[defctr][3][2,3]3.3}{[1][15][]15}}
+\zref@newlabel{mdf@pagelabel-12}{\default{3.3}\page{16}\abspage{16}\mdf@pagevalue{16}}
+\newlabel{eq:ZTransformHPlus}{{Eq.~15}{17}{Recursive Gaussian filtering}{equation.2.3.15}{}}
+\newlabel{eq:ZTransformHPlus@cref}{{[equation][15][2]Eq.~15}{[1][17][]17}}
+\newlabel{eq:ZTransformHMinus}{{Eq.~16}{17}{Recursive Gaussian filtering}{equation.2.3.16}{}}
+\newlabel{eq:ZTransformHMinus@cref}{{[equation][16][2]Eq.~16}{[1][17][]17}}
+\abx@aux@cite{young1995recursive}
+\abx@aux@segm{0}{0}{young1995recursive}
+\@writefile{toc}{\contentsline {subsubsection}{Summary}{20}{section*.11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Mean filter}{20}{subsection.2.3.2}}
+\zref@newlabel{mdf@pagelabel-13}{\default{3.4}\page{20}\abspage{20}\mdf@pagevalue{20}}
+\newlabel{def:MeanFilters}{{3.4}{20}{Mean filter}{defctr.2.3.4}{}}
+\newlabel{def:MeanFilters@cref}{{[defctr][4][2,3]3.4}{[1][20][]20}}
+\@writefile{toc}{\contentsline {subsubsection}{Integrals of integrals}{21}{section*.12}}
+\abx@aux@cite{viola2001rapid}
+\abx@aux@segm{0}{0}{viola2001rapid}
+\abx@aux@cite{tomasi1998bilateral}
+\abx@aux@segm{0}{0}{tomasi1998bilateral}
+\abx@aux@cite{paris2009bilateral}
+\abx@aux@segm{0}{0}{paris2009bilateral}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.10}{\ignorespaces Illustration of the computation using the sub-integrals.\relax }}{22}{figure.caption.13}}
+\newlabel{fig:filtersubintegrals}{{2.10}{22}{Illustration of the computation using the sub-integrals.\relax }{figure.caption.13}{}}
+\newlabel{fig:filtersubintegrals@cref}{{[figure][10][2]2.10}{[1][21][]22}}
+\@writefile{toc}{\contentsline {subsubsection}{Summary}{22}{section*.14}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Non-linear filters}{23}{section.2.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Bilateral filter}{23}{subsection.2.4.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.11}{\ignorespaces Example of bilateral filtering.\relax }}{23}{figure.caption.15}}
+\newlabel{fig:examplebilateralfiltering}{{2.11}{23}{Example of bilateral filtering.\relax }{figure.caption.15}{}}
+\newlabel{fig:examplebilateralfiltering@cref}{{[figure][11][2]2.11}{[1][23][]23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Median filter}{23}{subsection.2.4.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.12}{\ignorespaces Example of median filtering with different sizes of neighborhoods.\relax }}{24}{figure.caption.16}}
+\newlabel{fig:examplemedianfiltering}{{2.12}{24}{Example of median filtering with different sizes of neighborhoods.\relax }{figure.caption.16}{}}
+\newlabel{fig:examplemedianfiltering@cref}{{[figure][12][2]2.12}{[1][24][]24}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Naive Median filtering\relax }}{24}{algorithm.1}}
+\newlabel{alg:NaiveMedianFiltering}{{1}{24}{Naive Median filtering\relax }{algorithm.1}{}}
+\newlabel{alg:NaiveMedianFiltering@cref}{{[algorithm][1][]1}{[1][24][]24}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Huang Median filtering, 1979\relax }}{25}{algorithm.2}}
+\newlabel{alg:HuangMedianFiltering}{{2}{25}{Huang Median filtering, 1979\relax }{algorithm.2}{}}
+\newlabel{alg:HuangMedianFiltering@cref}{{[algorithm][2][]2}{[1][25][]25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.13}{\ignorespaces Sketch of the operations in the Huang median filter (algorithm \ref  {alg:HuangMedianFiltering}).\relax }}{26}{figure.caption.17}}
+\newlabel{fig:huangalgsketch}{{2.13}{26}{Sketch of the operations in the Huang median filter (algorithm \ref {alg:HuangMedianFiltering}).\relax }{figure.caption.17}{}}
+\newlabel{fig:huangalgsketch@cref}{{[figure][13][2]2.13}{[1][25][]26}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Perreault \& H\'ebert Median filtering, 2007\relax }}{27}{algorithm.3}}
+\newlabel{alg:PerreaultHebertMedianFiltering}{{3}{27}{Perreault \& Hébert Median filtering, 2007\relax }{algorithm.3}{}}
+\newlabel{alg:PerreaultHebertMedianFiltering@cref}{{[algorithm][3][]3}{[1][26][]27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.14}{\ignorespaces Sketch of the operations in the Perreault \& H\'ebert median filter (algorithm \ref  {alg:PerreaultHebertMedianFiltering}).\relax }}{28}{figure.caption.18}}
+\newlabel{fig:perreaulthebertmeanfiltersktech}{{2.14}{28}{Sketch of the operations in the Perreault \& Hébert median filter (algorithm \ref {alg:PerreaultHebertMedianFiltering}).\relax }{figure.caption.18}{}}
+\newlabel{fig:perreaulthebertmeanfiltersktech@cref}{{[figure][14][2]2.14}{[1][27][]28}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Morphological operations}{28}{section.2.5}}
+\zref@newlabel{mdf@pagelabel-14}{\default{5.1}\page{28}\abspage{28}\mdf@pagevalue{28}}
+\newlabel{def:ErosionAndDilation}{{5.1}{28}{Morphological operations}{defctr.2.5.1}{}}
+\newlabel{def:ErosionAndDilation@cref}{{[defctr][1][2,5]5.1}{[1][28][]28}}
+\zref@newlabel{mdf@pagelabel-15}{\default{5.2}\page{28}\abspage{28}\mdf@pagevalue{28}}
+\newlabel{def:OpeningAndClosing}{{5.2}{28}{Morphological operations}{defctr.2.5.2}{}}
+\newlabel{def:OpeningAndClosing@cref}{{[defctr][2][2,5]5.2}{[1][28][]28}}
+\abx@aux@cite{gonzalez2009digital}
+\abx@aux@segm{0}{0}{gonzalez2009digital}
+\abx@aux@cite{jahne2005applications}
+\abx@aux@segm{0}{0}{jahne2005applications}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.15}{\ignorespaces Example of erosion and dilation on a binary image of the shape of a cat.\relax }}{29}{figure.caption.19}}
+\newlabel{fig:catexampleerosiondilation}{{2.15}{29}{Example of erosion and dilation on a binary image of the shape of a cat.\relax }{figure.caption.19}{}}
+\newlabel{fig:catexampleerosiondilation@cref}{{[figure][15][2]2.15}{[1][28][]29}}
+\zref@newlabel{mdf@pagelabel-16}{\default{5.2}\page{29}\abspage{29}\mdf@pagevalue{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.16}{\ignorespaces Example of the opening and closing operation on a binary image of the shape of a cat.\relax }}{29}{figure.caption.20}}
+\newlabel{fig:catexampleopeningandclosing}{{2.16}{29}{Example of the opening and closing operation on a binary image of the shape of a cat.\relax }{figure.caption.20}{}}
+\newlabel{fig:catexampleopeningandclosing@cref}{{[figure][16][2]2.16}{[1][29][]29}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}GOTO END}{31}{chapter.3}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Exercises}{15}{chapter.4}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Exercises}{33}{chapter.4}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Sheet 0 - Questions in the lecture slides}{15}{section.4.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Q1 - lecture 02}{15}{subsection.4.1.1}}
-\@writefile{toc}{\contentsline {paragraph}{Solution:}{15}{section*.9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Q2 - lecture 03}{15}{subsection.4.1.2}}
-\@writefile{toc}{\contentsline {paragraph}{Solution:}{15}{section*.10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Q3 - lecture 03}{16}{subsection.4.1.3}}
-\@writefile{toc}{\contentsline {paragraph}{Solution:}{16}{section*.11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Q4 - lecture 03}{16}{subsection.4.1.4}}
-\@writefile{toc}{\contentsline {paragraph}{Solution:}{16}{section*.12}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Sheet 1}{17}{section.4.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Assignment 1a - Bias of an estimator}{17}{subsection.4.2.1}}
-\@writefile{toc}{\contentsline {paragraph}{Solution:}{17}{section*.13}}
-\bibcite{1}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Sheet 0 - Questions in the lecture slides}{33}{section.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Q1 - lecture 02}{33}{subsection.4.1.1}}
+\@writefile{toc}{\contentsline {paragraph}{Solution:}{33}{section*.21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Q2 - lecture 03}{33}{subsection.4.1.2}}
+\@writefile{toc}{\contentsline {paragraph}{Solution:}{33}{section*.22}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Q3 - lecture 03}{34}{subsection.4.1.3}}
+\@writefile{toc}{\contentsline {paragraph}{Solution:}{34}{section*.23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Q4 - lecture 03}{34}{subsection.4.1.4}}
+\@writefile{toc}{\contentsline {paragraph}{Solution:}{34}{section*.24}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Sheet 1}{35}{section.4.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Assignment 1a - Bias of an estimator}{35}{subsection.4.2.1}}
+\@writefile{toc}{\contentsline {paragraph}{Solution:}{35}{section*.25}}
+\abx@aux@refcontextdefaultsdone
+\abx@aux@defaultrefcontext{0}{tomasi1998bilateral}{ynt/global//global/global}
+\abx@aux@defaultrefcontext{0}{viola2001rapid}{ynt/global//global/global}
+\abx@aux@defaultrefcontext{0}{paris2009bilateral}{ynt/global//global/global}
